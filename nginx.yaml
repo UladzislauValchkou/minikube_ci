@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: nginx
 spec:
-  serviceName: "nginx"
   replicas: 1
   selector:
     matchLabels:
@@ -14,8 +13,9 @@ spec:
         app: nginx
     spec:
       containers:
-      - name: nginx-task
-        image: nginx
+      - name: nginx
+        image: test_nginx:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 80
           name: nginx 
@@ -29,7 +29,7 @@ metadata:
     app: nginx
 spec:
   ports:
-  - port: 8081
+  - port: 8080
     name: nginx
     targetPort: nginx
   selector:
@@ -39,8 +39,12 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-nginx
+  name: ingress-mynginx
 spec:
-  backend:
-    serviceName: nginx
-    servicePort: 8081
+  rules:
+  - http:
+      paths:
+      - path: /nginx
+        backend:
+          serviceName: nginx
+          servicePort: 80
