@@ -29,7 +29,7 @@ metadata:
     app: nginx
 spec:
   ports:
-  - port: 8080
+  - port: 80
     name: nginx
     targetPort: nginx
   selector:
@@ -40,6 +40,8 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: ingress-mynginx
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - http:
