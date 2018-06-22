@@ -4,7 +4,7 @@ pipeline {
       stage('PR-tests') {
         steps {
           echo 'stage1'
-          println ${env.BRANCH_NAME}
+          println env.BRANCH_NAME
         }
       }
       stage('docker-build') {
