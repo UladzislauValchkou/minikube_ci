@@ -6,8 +6,7 @@ pipeline {
           branch "PR-*"
         }
         steps {
-         echo env.BRANCH_NAME.split('-')[1]
-         echo env.BUILD_NUMBER
+         echo (env.BRANCH_NAME.split('-')[1] - env.BUILD_NUMBER)
          
         }
       }
