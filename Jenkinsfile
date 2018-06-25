@@ -6,7 +6,6 @@ pipeline {
           branch "PR-*"
         }
         steps {
-         prNumber = env.BRANCH_NAME.split('-')[1]
          println prNumber
          println env.BUILD_NUMBER
          println (prNumber.toInteger() + env.BUILD_NUMBER.toInteger())/2
@@ -44,6 +43,8 @@ pipeline {
       }
     }
 }
+
+prNumber = env.BRANCH_NAME.split('-')[1]
 
 def checkPullRequest() {
   prNumber = env.BRANCH_NAME.split('-')[1]
