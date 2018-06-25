@@ -3,7 +3,7 @@ pipeline {
     stages {
       stage('PR-tests') {
         when {
-          env.BRANCH_NAME = PR-*
+          env.BRANCH_NAME = "PR-*"
         }
         steps {
           echo 'stage1'
