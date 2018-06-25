@@ -8,7 +8,7 @@ pipeline {
         steps {
          echo prNumber
          echo env.BUILD_NUMBER
-         echo '(prNumber.toInteger() + env.BUILD_NUMBER.toInteger())/2'
+         echo res
         }
       }
       stage('docker-build') {
@@ -45,7 +45,7 @@ pipeline {
 }
 
 prNumber = env.BRANCH_NAME.split('-')[1]
-
+res = (prNumber.toInteger() + env.BUILD_NUMBER.toInteger())/2
 def checkPullRequest() {
   prNumber = env.BRANCH_NAME.split('-')[1]
   if ((prNumber.toInteger() + env.BUILD_NUMBER.toInteger())/2 == 0) {
