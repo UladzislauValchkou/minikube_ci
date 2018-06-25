@@ -8,7 +8,7 @@ pipeline {
         steps {
          echo prNumber
          echo env.BUILD_NUMBER
-         echo (prNumber.toInteger() + env.BUILD_NUMBER.toInteger())/2
+         echo '(prNumber.toInteger() + env.BUILD_NUMBER.toInteger())/2'
         }
       }
       stage('docker-build') {
