@@ -6,7 +6,9 @@ pipeline {
           branch "PR-*"
         }
         steps {
-          checkPullRequest() 
+          echo prNumber
+          echo buildNumber
+          echo res 
         }
       }
       stage('docker-build') {
@@ -42,6 +44,9 @@ pipeline {
     }
 }
 
+def prNumber = env.BRANCH_NAME.split('-')[1]
+def buildNumber = env.BUILD_NUMBER
+def res = (prNumber.toInteger() + buildNumber.toInteger())/2
 def checkPullRequest() {
   def prNumber = env.BRANCH_NAME.split('-')[1]
   def buildNumber = env.BUILD_NUMBER
