@@ -45,11 +45,9 @@ pipeline {
 def checkPullRequest() {
   int prNumber = env.BRANCH_NAME.split('-')[-1] as Integer
   int buildNumber = env.BUILD_NUMBER as Integer
-  println prNumber
-  println buildNumber
-  println (prNumber + buildNumber)
-  println (prNumber + buildNumber)/2
-  if ((prNumber + buildNumber)/2 == 0) {
+  int res = (prNumber + buildNumber) as Integer 
+  println res
+  if (res % 2 == 0) {
     println 'tests passed'
   } else {
     error("Build failed because of bad PR number, bitch")
