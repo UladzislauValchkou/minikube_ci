@@ -13,7 +13,7 @@ pipeline {
       stage('docker-build') {
         when {
           anyof {
-            branch 'feature/*'
+            branch "feature/*"
             branch 'dev'
           } 
         steps {
@@ -23,7 +23,7 @@ pipeline {
       stage('kuber-namespace') {
         when {
           anyof {
-            branch 'feature/*'
+            branch "feature/*"
             branch 'dev'
           }
         steps {
@@ -33,7 +33,7 @@ pipeline {
       stage('deploy-kuber') {
         when {
           anyof {
-            branch 'feature/*'
+            branch "feature/*"
             branch 'dev'
           }
         steps {
