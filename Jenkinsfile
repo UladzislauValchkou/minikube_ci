@@ -12,9 +12,8 @@ pipeline {
       }
       stage('docker-build') {
         when {
-          anyOf {
-            branch "feature/*"
-            branch 'dev'
+          not {
+            branch "PR-*"
           } 
         }
         steps {
@@ -23,9 +22,8 @@ pipeline {
       }
       stage('kuber-namespace') {
         when {
-          anyOf {
-            branch "feature/*"
-            branch 'dev'
+          not {
+            branch "PR-*"
           }
         } 
         steps {
@@ -34,9 +32,8 @@ pipeline {
       }
       stage('deploy-kuber') {
         when {
-          anyOf {
-            branch "feature/*"
-            branch 'dev'
+          not {
+            branch "PR-*"
           }
         }
         steps {
