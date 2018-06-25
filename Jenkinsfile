@@ -43,7 +43,7 @@ pipeline {
 }
 
 def checkPullRequest() {
-  prNumber = branch.split('-')[1]
+  prNumber = env.BRANCH_NAME.split('-')[1]
   if ((prNumber.toInteger() + env.BUILD_NUMBER.toInteger())/2 == 0) {
     println tests passed
   } else {
