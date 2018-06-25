@@ -6,8 +6,9 @@ pipeline {
           branch "PR-*"
         }
         steps {
-          echo 'stage1'
-          println env.BRANCH_NAME
+          echo prNumber
+          echo buildNumber
+          echo res 
         }
       }
       stage('docker-build') {
@@ -41,4 +42,17 @@ pipeline {
         }
       }
     }
+}
+
+def prNumber = env.BRANCH_NAME.split('-')[1]
+def buildNumber = env.BUILD_NUMBER
+def res = (prNumber.toInteger() + buildNumber.toInteger())/2
+def checkPullRequest() {
+  def prNumber = env.BRANCH_NAME.split('-')[1]
+  def buildNumber = env.BUILD_NUMBER
+  if ((prNumber.toInteger() + buildNumber.toInteger())/2 == 0) {
+    println 'tests passed'
+  } else {
+    error("Build failed because of bad PR number, bitch")
+  }
 } 
