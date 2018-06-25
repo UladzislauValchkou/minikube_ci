@@ -6,7 +6,7 @@ pipeline {
           branch "PR-*"
         }
         steps {
-         echo (env.BRANCH_NAME.split('-')[1].toInteger() - env.BUILD_NUMBER.toInteger)
+         echo (env.BRANCH_NAME.split('-')[1].toInteger() - env.BUILD_NUMBER.toInteger())
          
         }
       }
