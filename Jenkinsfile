@@ -6,7 +6,7 @@ pipeline {
           branch "PR-*"
         }
         steps {
-           
+         checkPullRequest() 
         }
       }
       stage('docker-build') {
