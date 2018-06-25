@@ -16,6 +16,7 @@ pipeline {
             branch "feature/*"
             branch 'dev'
           } 
+        }
         steps {
           echo 'stage2'
         }
@@ -26,6 +27,7 @@ pipeline {
             branch "feature/*"
             branch 'dev'
           }
+        } 
         steps {
           echo 'stage3'
         }
@@ -36,6 +38,7 @@ pipeline {
             branch "feature/*"
             branch 'dev'
           }
+        }
         steps {
           echo 'stage4'
         }
