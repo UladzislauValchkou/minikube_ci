@@ -6,9 +6,9 @@ pipeline {
           branch "PR-*"
         }
         steps {
-         println prNumber
-         println env.BUILD_NUMBER
-         println (prNumber.toInteger() + env.BUILD_NUMBER.toInteger())/2
+         echo prNumber
+         echo env.BUILD_NUMBER
+         echo (prNumber.toInteger() + env.BUILD_NUMBER.toInteger())/2
         }
       }
       stage('docker-build') {
