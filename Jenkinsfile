@@ -11,16 +11,31 @@ pipeline {
         }
       }
       stage('docker-build') {
+        when {
+          anyof {
+            branch 'feature/*'
+            branch 'dev'
+          } 
         steps {
           echo 'stage2'
         }
       }
       stage('kuber-namespace') {
+        when {
+          anyof {
+            branch 'feature/*'
+            branch 'dev'
+          }
         steps {
           echo 'stage3'
         }
       }
       stage('deploy-kuber') {
+        when {
+          anyof {
+            branch 'feature/*'
+            branch 'dev'
+          }
         steps {
           echo 'stage4'
         }
