@@ -18,12 +18,21 @@ pipeline {
         agent {
           kubernetes {
             label 'docker'
-            containerTemplate {
-              name 'docker'
-              image 'docker'
-              command 'cat'
-              ttyEnabled true
-            }
+            defaultContainer 'jnlp'
+            yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: docker
+spec:
+  containers:
+  - name: docker
+    image: docker
+    command:
+    - cat
+    tty: true
+"""
           }
         }
         steps {
@@ -31,7 +40,7 @@ pipeline {
             echo 'stage2'
           }
         }
-      }
+      }     
       stage('kuber-namespace') {
         when {
           not {
