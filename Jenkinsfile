@@ -15,8 +15,30 @@ pipeline {
             branch "PR-*"
           } 
         }
+        agent {
+          kubernetes {
+            label 'docker-pod'
+            defaultContainer 'jnlp'
+            yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: docker
+spec:
+  containers:
+  - name: docker
+    image: docker
+    command:
+    - cat
+    tty: true
+"""
+          }
+        }
         steps {
-          echo 'stage2'
+          container('docker') {
+            echo 'stage2'
+          }
         }
       }
       stage('kuber-namespace') {
