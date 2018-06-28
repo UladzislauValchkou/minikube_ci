@@ -18,21 +18,12 @@ pipeline {
         agent {
           kubernetes {
             label 'docker'
-            defaultContainer 'jnlp'
-            yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    app: docker
-spec:
-  containers:
-  - name: docker
-    image: docker
-    command:
-    - cat
-    tty: true
-"""
+            containerTemplate {
+              name 'docker'
+              image 'docker'
+              command 'cat'
+              ttyEnabled true
+            }
           }
         }
         steps {
