@@ -44,7 +44,6 @@ spec:
         }
         steps {
           container('docker') {
-            sh 'ls /var/run'
             sh 'docker -v'
             sh 'docker build .'            
           }
