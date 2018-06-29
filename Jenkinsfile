@@ -37,7 +37,10 @@ spec:
         }
         steps {
           container('docker') {
+            sh 'pwd'
+            sh 'ls'
             sh 'docker -v' 
+            sh 'docker build .'
           }
         }
       }     
