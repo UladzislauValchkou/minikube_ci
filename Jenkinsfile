@@ -51,7 +51,7 @@ spec:
           }
         }
       }     
-      stage('kuber-namespace') {
+      stage('kubernetes-namespace') {
         when {
           not {
             branch "PR-*"
@@ -78,15 +78,11 @@ spec:
           }
         }
         steps {
-          container('kubectl') {
-            script {
-              try {
-                sh 'kubectl get namespace | grep ${fixedBranch}'
-              } catch (err) { 
-                sh 'kubectl create namespace ${fixedBranch}'
-              }
-            }   
-          }
+          withCredentials([file(credentialsId: '82bd39fb-768d-4e8d-bbf4-77a4282c60f9', variable: 'FILE']) {
+            container('kubectl') {
+              sh 'kubectl get namespace | grep ${fixedBranch} || exit 0' 
+            }
+          }   
         }
       }
       stage('deploy-kuber') {
