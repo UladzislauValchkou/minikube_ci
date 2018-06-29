@@ -73,14 +73,14 @@ spec:
     image: lachlanevenson/k8s-kubectl
     volumeMounts:
     - name: kubeConf 
-      mountPath: ~/.kube/${FILE}
+      mountPath: ~/.kube/FILE
     command:
     - cat
     tty: true
   volumes:
   - name: kubeConf
     hostPath:
-      path: ${FILE}    
+      path: FILE    
 """
           }
         }
