@@ -1,4 +1,7 @@
 pipeline {
+    environment {
+      fixed-branch = fixBranchName()
+    }
     agent none 
     stages {
       stage('PR-tests') {
@@ -44,8 +47,7 @@ spec:
         }
         steps {
           container('docker') {
-            branch = fixBranchName()
-            sh 'docker build -t test-nginx:${branch}-${BUILD_NUMBER} .'            
+            sh 'docker build -t test-nginx:${fixed-branch}-${BUILD_NUMBER} .'            
           }
         }
       }     
@@ -71,8 +73,6 @@ spec:
       }
     }
 }
-
-def branch
 
 def checkPullRequest() {
   int prNumber = env.BRANCH_NAME.split('-')[-1] as Integer
