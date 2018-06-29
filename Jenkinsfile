@@ -37,7 +37,7 @@ spec:
         }
         steps {
           container('docker') {
-            echo 'stage2'
+            sh 'docker build .' 
           }
         }
       }     
