@@ -40,7 +40,7 @@ spec:
             sh 'pwd'
             sh 'ls'
             sh 'docker -v' 
-            sh 'docker build .'
+            sh 'sudo docker build .'
           }
         }
       }     
