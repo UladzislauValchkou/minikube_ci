@@ -79,11 +79,12 @@ spec:
         }
         steps {
           container('kubectl') {
-            if (sh 'kubectl get namespace | grep ${fixedBranch}' == '') {
+            try {
+              sh 'kubectl get namespace | grep ${fixedBranch}'
+            } catch (err) { 
               sh 'kubectl create namespace ${fixedBranch}'
-            } else {
-              echo 'namespace alredy exist'
-            }
+            }   
+          }
         }
       }
       stage('deploy-kuber') {
