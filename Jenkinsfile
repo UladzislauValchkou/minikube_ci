@@ -44,6 +44,7 @@ spec:
         }
         steps {
           container('docker') {
+            fixBranchName()
             sh 'docker build -t test-nginx:${BRANCH_NAME}-${BUILD_NUMBER} .'            
           }
         }
@@ -81,4 +82,9 @@ def checkPullRequest() {
   } else {
     error("Build failed because of bad PR number, bitch")
   }
-} 
+}
+
+def fixBranchName() {
+  def str1 = env.BRANCH_NAME.replaceAll('/', '-')
+  println str1
+}
