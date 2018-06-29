@@ -44,8 +44,8 @@ spec:
         }
         steps {
           container('docker') {
-            fixBranchName()
-            sh 'docker build -t test-nginx:${BRANCH_NAME}-${BUILD_NUMBER} .'            
+            def branch = fixBranchName()
+            sh 'docker build -t test-nginx:${branch}-${BUILD_NUMBER} .'            
           }
         }
       }     
@@ -85,6 +85,6 @@ def checkPullRequest() {
 }
 
 def fixBranchName() {
-  def str1 = env.BRANCH_NAME.replaceAll('/', '-')
-  println str1
+  def valid_name = env.BRANCH_NAME.replaceAll('/', '-')
+   return valid_name 
 }
