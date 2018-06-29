@@ -29,16 +29,22 @@ spec:
   containers:
   - name: docker
     image: docker
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    volumeMounts:
+      - name: docker-sock
+        mountPath: /var/run/docker.sock
     command:
     - cat
     tty: true
+  volumes:
+  - name: docker-sock
+    hostPath:
+      path: /var/run/docker.sock        
 """
           }
         }
         steps {
           container('docker') {
+            sh 'ls /var/run'
             sh 'docker -v'
             sh 'docker build .'            
           }
