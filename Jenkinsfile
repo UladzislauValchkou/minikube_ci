@@ -78,7 +78,7 @@ spec:
           }
         }
         steps {
-          withCredentials([file(credentialsId: '82bd39fb-768d-4e8d-bbf4-77a4282c60f9', variable: 'FILE']) {
+          withCredentials([file(credentialsId: '82bd39fb-768d-4e8d-bbf4-77a4282c60f9', variable: 'FILE')]) {
             container('kubectl') {
               sh 'kubectl get namespace | grep ${fixedBranch} || exit 0' 
             }
