@@ -29,6 +29,8 @@ spec:
   containers:
   - name: docker
     image: docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     command:
     - cat
     tty: true
