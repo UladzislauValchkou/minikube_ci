@@ -56,9 +56,34 @@ spec:
           not {
             branch "PR-*"
           }
-        } 
+        }
+        agent {
+          kubernetes {
+            label 'kubectl'
+            defaultContainer 'jnlp'
+            yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: kubectl
+spec:
+  containers:
+  - name: kubectl
+    image: lachlanevenson/k8s-kubectl
+    command:
+    - cat
+    tty: true
+"""
+          }
+        }
         steps {
-          echo 'stage3'
+          container('kubectl') {
+            if (sh 'kubectl get namespace | grep ${fixedBranch}' == '') {
+              sh 'kubectl create namespace ${fixedBranch}'
+            } else {
+              echo 'namespace alredy exist'
+            }
         }
       }
       stage('deploy-kuber') {
