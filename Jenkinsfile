@@ -37,7 +37,7 @@ spec:
         }
         steps {
           container('docker') {
-            sh 'docker build .' 
+            sh 'docker -v' 
           }
         }
       }     
