@@ -40,7 +40,7 @@ spec:
             sh 'pwd'
             sh 'ls'
             sh 'docker -v' 
-            sh 'sudo docker build .'
+            
           }
         }
       }     
@@ -51,6 +51,7 @@ spec:
           }
         } 
         steps {
+          sh 'ls /var/run/'
           echo 'stage3'
         }
       }
