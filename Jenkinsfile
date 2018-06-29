@@ -39,10 +39,8 @@ spec:
         }
         steps {
           container('docker') {
-            sh 'pwd'
-            sh 'ls'
-            sh 'docker -v' 
-            
+            sh 'docker -v'
+            sh 'docker build .'            
           }
         }
       }     
@@ -53,7 +51,6 @@ spec:
           }
         } 
         steps {
-          sh 'ls /var/run/'
           echo 'stage3'
         }
       }
