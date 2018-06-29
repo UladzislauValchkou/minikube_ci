@@ -44,7 +44,7 @@ spec:
         }
         steps {
           container('docker') {
-            sh 'docker build -t test-nginx:evn.BRANCH_NAME-env.BUILD_NUMBER .'            
+            sh 'docker build -t test-nginx:${BRANCH_NAME}-${BUILD_NUMBER} .'            
           }
         }
       }     
