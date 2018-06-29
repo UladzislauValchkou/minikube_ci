@@ -79,10 +79,12 @@ spec:
         }
         steps {
           container('kubectl') {
-            try {
-              sh 'kubectl get namespace | grep ${fixedBranch}'
-            } catch (err) { 
-              sh 'kubectl create namespace ${fixedBranch}'
+            script {
+              try {
+                sh 'kubectl get namespace | grep ${fixedBranch}'
+              } catch (err) { 
+                sh 'kubectl create namespace ${fixedBranch}'
+              }
             }   
           }
         }
