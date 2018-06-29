@@ -72,6 +72,8 @@ spec:
     }
 }
 
+def branch
+
 def checkPullRequest() {
   int prNumber = env.BRANCH_NAME.split('-')[-1] as Integer
   int buildNumber = env.BUILD_NUMBER as Integer
