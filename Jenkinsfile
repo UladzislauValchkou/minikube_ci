@@ -1,6 +1,6 @@
 pipeline {
     environment {
-      fixed-branch == fixBranchName()
+      fixedBranch = fixBranchName()
     }
     agent none 
     stages {
@@ -47,7 +47,7 @@ spec:
         }
         steps {
           container('docker') {
-            sh 'docker build -t test-nginx:${fixed-branch}-${BUILD_NUMBER} .'            
+            sh 'docker build -t test-nginx:${fixedBranch}-${BUILD_NUMBER} .'            
           }
         }
       }     
