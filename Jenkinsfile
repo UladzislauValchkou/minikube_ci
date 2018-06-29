@@ -1,6 +1,6 @@
 pipeline {
     environment {
-      fixed-branch = fixBranchName()
+      fixed-branch == fixBranchName()
     }
     agent none 
     stages {
