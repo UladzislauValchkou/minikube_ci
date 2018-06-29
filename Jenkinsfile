@@ -44,7 +44,7 @@ spec:
         }
         steps {
           container('docker') {
-            def branch = fixBranchName()
+            branch = fixBranchName()
             sh 'docker build -t test-nginx:${branch}-${BUILD_NUMBER} .'            
           }
         }
