@@ -71,9 +71,16 @@ spec:
   containers:
   - name: kubectl
     image: lachlanevenson/k8s-kubectl
+    volumeMounts:
+      - name: kube-config
+        mountPath: ~/.kube/config
     command:
     - cat
     tty: true
+  volumes:
+  - name: kube-config
+    hostPath:
+      path: ${FILE}
 """
           }
         }
