@@ -71,23 +71,16 @@ spec:
   containers:
   - name: kubectl
     image: lachlanevenson/k8s-kubectl
-    volumeMounts:
-      - name: kube-config
-        mountPath: ~/.kube/config
     command:
     - cat
     tty: true
-  volumes:
-  - name: kube-config
-    hostPath:
-      path: ${FILE}
 """
           }
         }
         steps {
           withCredentials([file(credentialsId: '2f0cc01e-0efd-4458-9c9e-2578d91b7485', variable: 'FILE')]) {
             container('kubectl') {
-              echo FILE
+              sh 'mkdir -p ~/.kube && cp -f FILE ~/.kube/config'
               sh 'kubectl get namespace | grep ${fixedBranch} || exit 0' 
             }
           }   
