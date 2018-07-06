@@ -81,7 +81,7 @@ spec:
           withCredentials([file(credentialsId: '2f0cc01e-0efd-4458-9c9e-2578d91b7485', variable: 'FILE')]) {
             container('kubectl') {
               sh 'mkdir -p ~/.kube && cp -f ${FILE} ~/.kube/config'
-              sh 'kubectl get namespace | grep ${fixedBranch} || exit 0' 
+              sh 'kubectl create namespace ${fixedBranch} || exit 0' 
             }
           }   
         }
