@@ -70,7 +70,7 @@ metadata:
 spec:
   containers:
   - name: kubectl
-    image: lachlanevenson/k8s-kubectl
+    image: roffe/kubectl
     command:
     - cat
     tty: true
