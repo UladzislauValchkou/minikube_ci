@@ -51,7 +51,7 @@ spec:
           }
         }
       }     
-      stage('kubernetes-namespace') {
+      stage('kubernetes-deployment-namespaceCreating') {
         when {
           not {
             branch "PR-*"
@@ -83,7 +83,9 @@ spec:
               sh 'cp -f ${FILE} ./ && tar -xf ${FILE}'
               sh 'mkdir -p ~/.minikube && cp -f ca.crt client.crt client.key ~/.minikube/'
               sh 'mkdir -p ~/.kube && cp -f config ~/.kube/config'
-              sh 'kubectl create namespace ${fixedBranch} || exit 0' 
+              sh 'kubectl create namespace ${fixedBranch} || exit 0'
+              sh 'sed -i -e 's/replaceItForIngressUpdate/${fixedBranch}/g' nginx.yaml'
+              sh 'sed -i -e 's/setNamespace/${fixedBranch}/g' nginx.yaml'
             }
           }   
         }
