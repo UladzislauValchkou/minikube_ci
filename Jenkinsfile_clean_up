@@ -3,6 +3,7 @@ pipeline{
       branchList = scm.branches
     }
   agent none
+  stages {
   stage('delete_namespace') {
     agent {
       kubernetes {
@@ -37,5 +38,5 @@ spec:
 
     
     }
+  }
 }
-
