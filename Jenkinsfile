@@ -86,6 +86,7 @@ spec:
               sh 'kubectl create namespace ${fixedBranch} || exit 0'
               sh "sed -i -e 's/replaceItForIngressUpdate/${fixedBranch}/g' nginx.yaml"
               sh "sed -i -e 's/setNamespace/${fixedBranch}/g' nginx.yaml"
+              sh "sed -i -e 's/latest/${fixedBranch}-${BUILD_NUMBER}/g' nginx.yaml"
               sh 'kubectl delete -f nginx.yaml || exit 0'
               sh 'kubectl create -f nginx.yaml'
             }
