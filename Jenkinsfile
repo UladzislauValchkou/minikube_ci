@@ -93,16 +93,6 @@ spec:
           }   
         }
       }
-      stage('deploy-kuber') {
-        when {
-          not {
-            branch "PR-*"
-          }
-        }
-        steps {
-          echo 'stage4'
-        }
-      }
     }
 }
 
