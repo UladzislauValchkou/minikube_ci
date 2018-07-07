@@ -1,6 +1,6 @@
 pipeline{
   environment {
-      branchList = scm.branches
+      branchList = "${scm.branches}"
     }
   agent none
   stages {
