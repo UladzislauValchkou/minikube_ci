@@ -81,7 +81,7 @@ spec:
           withCredentials([file(credentialsId: '2f0cc01e-0efd-4458-9c9e-2578d91b7485', variable: 'FILE')]) {
             container('kubectl') {
               sh 'cp -f ${FILE} ./ && tar -xf ${FILE}'
-              sh 'mkdir -p ~/.minikube && cp -ft ~/.minikube ca.crt client.crt client.key'
+              sh 'mkdir -p ~/.minikube && cp -f ca.crt client.crt client.key ~/.minikube/'
               sh 'mkdir -p ~/.kube && cp -f config ~/.kube/config'
               sh 'kubectl create namespace ${fixedBranch} || exit 0' 
             }
