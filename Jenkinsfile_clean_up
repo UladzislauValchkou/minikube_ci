@@ -1,9 +1,12 @@
 pipeline{
+  environment {
+    branches = getGitBranchName()
+  }
   agent any
   stages {
   stage('get_branches') {
     steps {
-      checkout scm
+      println branches
     }
   }
   stage('delete_namespace') {
@@ -43,3 +46,6 @@ spec:
   }
 }
 
+def getGitBranchName() {
+    return scm.branches.name
+}
