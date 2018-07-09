@@ -1,6 +1,6 @@
 pipeline{
   environment {
-
+    123 = 543
   }
   agent any
   stages {
