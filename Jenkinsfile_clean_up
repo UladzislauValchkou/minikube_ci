@@ -32,7 +32,8 @@ spec:
               sh 'mkdir -p ~/.minikube && cp -f ca.crt client.crt client.key ~/.minikube/'
               sh 'mkdir -p ~/.kube && cp -f config ~/.kube/config'
               script {
-                def namespace = sh returnStdout: true, script: 'kubectl get namespace | grep -v Active | awk {print$1}'
+                def result = sh returnStdout: true, script: 'kubectl get namespace | grep Active'
+                def namespace = result.split(' ')[0]
                 println namespace
              }
             }
