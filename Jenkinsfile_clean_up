@@ -6,7 +6,7 @@ pipeline{
   stages {
   stage('get_branches') {
     steps {
-      sh 'git branch'
+      println branches
     }
   }
   stage('delete_namespace') {
@@ -33,6 +33,7 @@ spec:
      steps {
         withCredentials([file(credentialsId: '2f0cc01e-0efd-4458-9c9e-2578d91b7485', variable: 'FILE')]) {
             container('kubectl') {
+              println branches
               sh 'cp -f ${FILE} ./ && tar -xf ${FILE}'
               sh 'mkdir -p ~/.minikube && cp -f ca.crt client.crt client.key ~/.minikube/'
               sh 'mkdir -p ~/.kube && cp -f config ~/.kube/config'
@@ -44,3 +45,20 @@ spec:
     }
   }
 }
+
+def gitURL = "https://github.com/UladzislauValchkou/minikube_ci"
+def command = "git ls-remote -h $gitURL"
+
+def proc = command.execute()
+proc.waitFor()              
+
+if ( proc.exitValue() != 0 ) {
+   println "Error, ${proc.err.text}"
+   System.exit(-1)
+}
+
+def branches = proc.in.text.readLines().collect { 
+    it.replaceAll(/[a-z0-9]*\trefs\/heads\//, '') 
+}
+
+
