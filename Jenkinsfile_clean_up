@@ -50,5 +50,5 @@ def getGitBranchName() {
     def full_list = "git ls-remote --heads https://github.com/UladzislauValchkou/minikube_ci"
     def process = full_list.execute()
     def branch = process.in.text.readLines() 
-    return branch.split('\/')
+    return branch
 }
