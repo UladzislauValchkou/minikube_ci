@@ -33,11 +33,12 @@ spec:
               sh 'mkdir -p ~/.kube && cp -f config ~/.kube/config'
               script {
                 def result = sh returnStdout: true, script: 'kubectl get namespace | grep Active'
-                def all_namespaces = result.readLines().collect{
+                def namespaces = result.readLines().collect{
                   it.split(' ')[0]
                 }
-                all_namespaces.removeAll{ it.startsWith('kube') }
-                println all_namespaces
+                namespaces.removeAll{ it.startsWith('kube') }
+                namespaces.removeAll { it.startsWith('default') }
+                println namespaces
              }
             }
            
