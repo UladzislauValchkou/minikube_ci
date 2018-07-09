@@ -39,12 +39,12 @@ spec:
                 }
                 namespaces.removeAll{ it.startsWith('kube') }
                 namespaces.removeAll { it.startsWith('default') }
-                namespaces.each { it ->
-                  if (branches.contains(it)) {
-                    println "${it} will not be deleted"
+                namespaces.each { namesp ->
+                  if (branches.contains(namesp)) {
+                    println "${namesp} will not be deleted"
                 } else {
-                  echo "namespace ${it} will be deleted"
-                  sh "kubectl delete namespace ${it}"
+                  echo "namespace ${namesp} will be deleted"
+                  sh "kubectl delete namespace ${namesp}"
                   }
                 }
              }
