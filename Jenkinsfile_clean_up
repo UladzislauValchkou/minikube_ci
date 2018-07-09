@@ -57,7 +57,7 @@ def getGitBranchName() {
     def branch = process.in.text.readLines().collect{
       it.split('/')[2]
     }
-    branch.each { it.replaceAll('/', '-') }
+    /*branch.each { it.replaceAll('/', '-') }*/
     return branch
 }
 
