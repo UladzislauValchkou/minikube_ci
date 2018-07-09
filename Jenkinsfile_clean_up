@@ -33,7 +33,7 @@ spec:
               sh 'mkdir -p ~/.kube && cp -f config ~/.kube/config'
               script {
                 def result = sh returnStdout: true, script: 'kubectl get namespace | grep Active'
-                def namespace = result.split(' ')[0]
+                def namespace = result
                 println namespace
              }
             }
