@@ -1,7 +1,6 @@
 pipeline{
   environment {
     branches = getGitBranchName()
-    namespaces = getNamespaces()
   }
   agent any
   stages {
@@ -33,8 +32,16 @@ spec:
               sh 'cp -f ${FILE} ./ && tar -xf ${FILE}'
               sh 'mkdir -p ~/.minikube && cp -f ca.crt client.crt client.key ~/.minikube/'
               sh 'mkdir -p ~/.kube && cp -f config ~/.kube/config'
-              println namespaces
+              def getNamespaces() {
+                def full_list = "kubectl get namespace"
+                def process = full_list.execute()
+                def branch = process.in.text.readLines().collect{
+                  it.split(' ')[0]
+                } 
+              return branch
              }
+              println getNamespaces()
+            }
           }
         }
 
@@ -52,11 +59,4 @@ def getGitBranchName() {
     return branch
 }
 
-def getNamespaces() {
-    def full_list = "kubectl get namespaces | grep feature"
-    def process = full_list.execute()
-    def namespace = process.in.text.readLines().collect{
-      it.split(' ')[-1]
-    }
-    return namespace
-}
+
