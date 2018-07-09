@@ -28,16 +28,11 @@ spec:
      steps {
         withCredentials([file(credentialsId: '2f0cc01e-0efd-4458-9c9e-2578d91b7485', variable: 'FILE')]) {
             container('kubectl') {
-              println branches
               sh 'cp -f ${FILE} ./ && tar -xf ${FILE}'
               sh 'mkdir -p ~/.minikube && cp -f ca.crt client.crt client.key ~/.minikube/'
               sh 'mkdir -p ~/.kube && cp -f config ~/.kube/config'
               script {
-                def full_list = "kubectl get namespace | grep Active"
-                def process = full_list.execute()
-                def namespace = process.in.text.readLines().collect{
-                  it.split(' ')[0]
-                } 
+                def namespace = sh returnStdout: true, script: 'kubectl get namespace | grep -v Active | awk {print$1}'
                 println namespace
              }
             }
