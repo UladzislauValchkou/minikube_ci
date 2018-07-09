@@ -1,7 +1,7 @@
 pipeline{
   environment {
     branches = getGitBranchName()
-    namespaces = getNamespace()
+    namespaces = getNamespaces()
   }
   agent any
   stages {
