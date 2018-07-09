@@ -6,7 +6,7 @@ pipeline{
   stages {
   stage('get_branches') {
     steps {
-      sh 'git branch'
+      println scm.branches
     }
   }
   stage('delete_namespace') {
