@@ -4,11 +4,6 @@ pipeline{
   }
   agent any
   stages {
-  stage('get_branches') {
-    steps {
-      println branches
-    }
-  }
   stage('delete_namespace') {
     agent {
       kubernetes {
@@ -37,6 +32,8 @@ spec:
               sh 'cp -f ${FILE} ./ && tar -xf ${FILE}'
               sh 'mkdir -p ~/.minikube && cp -f ca.crt client.crt client.key ~/.minikube/'
               sh 'mkdir -p ~/.kube && cp -f config ~/.kube/config'
+              def namespaces = sh 'kubectl get namespaces'
+              println namespaces
              }
           }
         }
