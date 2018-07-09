@@ -6,7 +6,7 @@ pipeline{
   stages {
   stage('get_branches') {
     steps {
-      println scm.branches
+      sh 'git ls-remote https://github.com/UladzislauValchkou/minikube_ci'
     }
   }
   stage('delete_namespace') {
