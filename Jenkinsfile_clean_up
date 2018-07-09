@@ -1,6 +1,6 @@
 pipeline{
   environment {
-      branchList = "${scm.branches}"
+      branchList = sh 'git branch' 
     }
   agent none
   stages {
