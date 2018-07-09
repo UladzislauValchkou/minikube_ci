@@ -28,6 +28,7 @@ spec:
      steps {
         withCredentials([file(credentialsId: '2f0cc01e-0efd-4458-9c9e-2578d91b7485', variable: 'FILE')]) {
             container('kubectl') {
+              println branches
               sh 'cp -f ${FILE} ./ && tar -xf ${FILE}'
               sh 'mkdir -p ~/.minikube && cp -f ca.crt client.crt client.key ~/.minikube/'
               sh 'mkdir -p ~/.kube && cp -f config ~/.kube/config'
@@ -38,7 +39,14 @@ spec:
                 }
                 namespaces.removeAll{ it.startsWith('kube') }
                 namespaces.removeAll { it.startsWith('default') }
-                println namespaces
+                namespaces.each { namesp ->
+                  if (branches.contains(namesp)) {
+                    println "${namesp} will not be deleted"
+                } else {
+                  echo "namespace ${namesp} will be deleted"
+                  sh "kubectl delete namespace ${namesp}"
+                  }
+                }
              }
             }
            
@@ -53,10 +61,14 @@ spec:
 def getGitBranchName() {
     def full_list = "git ls-remote --heads https://github.com/UladzislauValchkou/minikube_ci"
     def process = full_list.execute()
-    def branch = process.in.text.readLines().collect{
-      it.split('/')[2]
+    def branches = process.in.text.readLines().collect{
+      it.split('heads/')[1]
     }
-    return branch
+    def fixedBranches = []
+    branches.each { it ->
+      fixedBranches << it.replaceAll('/', '-')
+    }
+    return fixedBranches
 }
 
 
