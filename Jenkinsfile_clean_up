@@ -47,7 +47,7 @@ spec:
 }
 
 def getGitBranchName() {
-    full_list = sh 'git ls-remote https://github.com/UladzislauValchkou/minikube_ci'
-    branch = full_list.unique
+    full_list = "git ls-remote https://github.com/UladzislauValchkou/minikube_ci"
+    branch = full_list.execute()
     return branch
 }
