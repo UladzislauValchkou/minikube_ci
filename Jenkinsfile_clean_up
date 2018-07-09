@@ -36,7 +36,7 @@ spec:
                 def all_namespaces = result.readLines().collect{
                   it.split(' ')[0]
                 }
-                def namespace = all_namespaces.removeAll{ it.startsWith('kube') && it.startsWith('default')}
+                def namespace = all_namespaces.removeAll{ it.startsWith('kube') && it.startsWith('default') }
                 println namespace
              }
             }
