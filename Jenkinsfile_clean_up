@@ -40,6 +40,11 @@ spec:
                 namespaces.removeAll{ it.startsWith('kube') }
                 namespaces.removeAll { it.startsWith('default') }
                 println namespaces
+                if ( i in namespaces != j in branches ) {
+                  sh 'kubectl delete namespace ${i}
+                } else {
+                  echo "namespaces checked"
+                }
              }
             }
            
