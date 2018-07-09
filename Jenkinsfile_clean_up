@@ -45,6 +45,7 @@ spec:
                 } else {
                   echo "namespace ${it} will be deleted"
                   sh "kubectl delete namespace ${it}"
+                  }
                 }
              }
             }
