@@ -33,17 +33,15 @@ spec:
               sh 'mkdir -p ~/.minikube && cp -f ca.crt client.crt client.key ~/.minikube/'
               sh 'mkdir -p ~/.kube && cp -f config ~/.kube/config'
               script {
-              def getNamespaces() {
-                def full_list = "kubectl get namespace"
+                def full_list = "kubectl get namespace | grep Active"
                 def process = full_list.execute()
-                def branch = process.in.text.readLines().collect{
+                def namespace = process.in.text.readLines().collect{
                   it.split(' ')[0]
                 } 
-              return branch
+                println namespace
              }
-              println getNamespaces()
             }
-            }
+           
           }
         }
 
