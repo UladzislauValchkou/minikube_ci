@@ -6,7 +6,7 @@ pipeline{
   stages {
   stage('get_branches') {
     steps {
-      sh 'git ls-remote https://github.com/UladzislauValchkou/minikube_ci'
+      println branches
     }
   }
   stage('delete_namespace') {
@@ -47,5 +47,7 @@ spec:
 }
 
 def getGitBranchName() {
-    return scm.branches.name
+    full_list = sh 'git ls-remote https://github.com/UladzislauValchkou/minikube_ci'
+    branch = full_list.unique
+    return branch
 }
