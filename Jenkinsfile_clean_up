@@ -57,8 +57,8 @@ def getGitBranchName() {
     def branch = process.in.text.readLines().collect{
       it.split('heads/')[1]
     }
-    branch.each { it.replaceAll('/', '-') }
-    return branch
+    def branch_fixed = branch.each { it.replaceAll('/', '-') }
+    return branch_fixed
 }
 
 
