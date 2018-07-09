@@ -1,0 +1,62 @@
+pipeline{
+  environment {
+    branches = getGitBranchName()
+  }
+  agent any
+  stages {
+  stage('delete_namespace') {
+    agent {
+      kubernetes {
+        label 'kubectl'
+        defaultContainer 'jnlp'
+        yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: kubectl
+spec:
+  containers:
+  - name: kubectl
+    image: roffe/kubectl
+    command:
+    - cat
+    tty: true
+"""
+          }
+        }
+     steps {
+        withCredentials([file(credentialsId: '2f0cc01e-0efd-4458-9c9e-2578d91b7485', variable: 'FILE')]) {
+            container('kubectl') {
+              sh 'cp -f ${FILE} ./ && tar -xf ${FILE}'
+              sh 'mkdir -p ~/.minikube && cp -f ca.crt client.crt client.key ~/.minikube/'
+              sh 'mkdir -p ~/.kube && cp -f config ~/.kube/config'
+              script {
+                def result = sh returnStdout: true, script: 'kubectl get namespace | grep Active'
+                def namespaces = result.readLines().collect{
+                  it.split(' ')[0]
+                }
+                namespaces.removeAll{ it.startsWith('kube') }
+                namespaces.removeAll { it.startsWith('default') }
+                println namespaces
+             }
+            }
+           
+          }
+        }
+
+    
+    }
+  }
+}
+
+def getGitBranchName() {
+    def full_list = "git ls-remote --heads https://github.com/UladzislauValchkou/minikube_ci"
+    def process = full_list.execute()
+    def branch = process.in.text.readLines().collect{
+      it.split('/')[2]
+    }
+    return branch
+}
+
+
