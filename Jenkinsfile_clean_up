@@ -32,6 +32,7 @@ spec:
               sh 'cp -f ${FILE} ./ && tar -xf ${FILE}'
               sh 'mkdir -p ~/.minikube && cp -f ca.crt client.crt client.key ~/.minikube/'
               sh 'mkdir -p ~/.kube && cp -f config ~/.kube/config'
+              script {
               def getNamespaces() {
                 def full_list = "kubectl get namespace"
                 def process = full_list.execute()
@@ -41,6 +42,7 @@ spec:
               return branch
              }
               println getNamespaces()
+            }
             }
           }
         }
